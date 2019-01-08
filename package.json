@@ -1,0 +1,19 @@
+{
+  "name": "sheave",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Kai Curry <kai@cape.io>",
+  "license": "MIT",
+  "dependencies": {
+    "cape-lodash": "^2.4.0",
+    "lodash": "^4.17.11",
+    "mime": "^2.4.0"
+  },
+  "devDependencies": {
+    "date-fns": "^2.0.0-alpha.26",
+    "eslint": "^5.12.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-lodash-fp": "^2.2.0-a1",
+    "jest": "^23.6.0"
+  }
+}
