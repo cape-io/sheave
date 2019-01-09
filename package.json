@@ -5,6 +5,7 @@
   "author": "Kai Curry <kai@cape.io>",
   "license": "MIT",
   "dependencies": {
+    "app-root-path": "^2.1.0",
     "cape-lodash": "^2.4.0",
     "lodash": "^4.17.11",
     "lodash-humps": "^3.1.2",

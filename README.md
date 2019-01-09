@@ -2,6 +2,12 @@
 
 Web request redirection! Intended for use inside `webworker` environment.
 
+## Globals
+
+* fetch
+* Response
+* addEventListener
+
 ## Providers
 
 * Backblaze B2
