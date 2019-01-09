@@ -1,4 +1,6 @@
-const { eq, flow, find, get } = require('lodash/fp')
+const {
+  eq, flow, find, get,
+} = require('lodash/fp')
 const { isLt } = require('cape-lodash')
 
 const durations = [
@@ -15,7 +17,7 @@ const durations = [
 
 const getDuration = age => find(isLt(age), durations) || 5
 
-function getCacheControll (modified) {
+function getCacheControll(modified) {
   const age = (Date.now() - modified.getTime()) / 1000
   return `max-age=${getDuration(age)}`
 }

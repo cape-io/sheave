@@ -1,6 +1,6 @@
 # Sheave
 
-Web request redirection!
+Web request redirection! Intended for use inside `webworker` environment.
 
 ## Providers
 
