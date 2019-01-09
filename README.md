@@ -9,7 +9,8 @@ Web request redirection!
 
 ## TODO
 
-Make it easy to redirect to any web folder. Like raw.github.
+[] Tests
+[] Make it easy to redirect to any web folder. Like raw.github.
 
 ### Directives
 

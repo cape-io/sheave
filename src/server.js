@@ -4,9 +4,8 @@ const { handleResponse } = require('./providers')
 const { name, version } = require('./package.json')
 
 function log(x) {
-  console.log(x);
+  console.log(x)
   return x
-  // return x && x.then && x.then((y) => { console.log('y', y); return y }) || console.log(x) || x
 }
 
 function versionResponse({ pathname }) {
