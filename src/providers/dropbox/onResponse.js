@@ -1,4 +1,4 @@
-const { find, flow } = require('lodash/fp')
+,const { find, flow } = require('lodash/fp')
 const humps = require('lodash-humps')
 const mime = require('mime')
 const { getCacheControll, getEtag, isOk } = require('../utils')

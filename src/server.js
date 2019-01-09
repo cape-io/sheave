@@ -12,6 +12,7 @@ function log(x) {
 function versionResponse({ pathname }) {
   return (pathname === '/_version.json') ? new Response(JSON.stringify({ name, version })) : false
 }
+
 function handler(getProxyInfo, event) {
   const info = getProxyInfo(event.request)
   return versionResponse(info) || fetch(...info.args)
@@ -19,10 +20,13 @@ function handler(getProxyInfo, event) {
     .catch(console.error)
 }
 
-function createFunction(getProxyInfo) {
+function registerFunction(getProxyInfo) {
   addEventListener('fetch', event => {
     event.respondWith(handler(getProxyInfo, event))
   })
 }
 
-module.exports = createFunction
+module.exports = {
+  handler,
+  registerFunction,
+}
