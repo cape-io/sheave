@@ -1,15 +1,13 @@
 const { pick } = require('lodash/fp')
-const reqlib = require('app-root-path').require
 const { handleResponse } = require('./providers')
 const sheaveInfo = require('../package.json')
 
-const appInfo = reqlib('package.json')
 
 /* globals Response fetch addEventListener */
 const getInfo = pick(['name', 'version'])
-function versionResponse({ pathname }) {
+function versionResponse({ pathname, version }) {
   const res = {
-    function: getInfo(appInfo),
+    function: version || { name: null, version: null },
     sheave: getInfo(sheaveInfo),
   }
   return (pathname === '/_version.json') ? new Response(JSON.stringify(res)) : false
