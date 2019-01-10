@@ -3,6 +3,8 @@ const { flow, get, propertyOf } = require('lodash/fp')
 const b2 = require('./b2')
 const dropbox = require('./dropbox')
 
+/* globals Response */
+
 const providers = { b2, dropbox }
 
 const getFunc = propId => flow(get('provider'), propertyOf(providers), get(propId))

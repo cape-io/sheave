@@ -1,7 +1,9 @@
 const {
-  curry, flow, getOr, overArgs, set,
+  curry, eq, defaults, defaultTo, flow, overArgs, pick, propertyOf, set, stubFalse,
 } = require('lodash/fp')
-const { doProp, setField } = require('cape-lodash')
+const {
+  condId, doProp, replaceField, setField, setWith,
+} = require('cape-lodash')
 const { addFetchArgs } = require('./providers')
 
 const INDEX_FILE = 'index'
@@ -12,14 +14,19 @@ const mergeFieldsWith = curry((withId, transformer, item) => ({
   ...doProp(transformer, withId)(item),
 }))
 
-// Get subdomain value.
-function parseUrl(req) {
-  const { headers, url } = req
-  const { hostname, pathname } = new URL(url)
-  const subdomain = hostname.split('.')[0]
-  return {
-    headers, hostname, pathname, subdomain,
-  }
+const parseUrl = flow(
+  x => new URL(x),
+
+)
+
+// This is the info passed to getProxyInfo from the parent.
+function getInfo(defaultInfo, domainIndex) {
+  const sameProvider = defaultInfo.provider ? eq(defaultInfo.provider) : stubFalse
+  return flow(
+    propertyOf(domainIndex),
+    defaultTo(defaultInfo),
+    condId([sameProvider, defaults(defaultInfo)]),
+  )
 }
 
 // Decide if route needs an index file
@@ -39,23 +46,27 @@ const addExt = pathname => (needsExt(pathname) ? pathname.concat(DEFAULT_EXT) : 
 const getPath = pathname => addExt(addIndex(pathname))
 
 // Combine bucketPath for entire domain with the specific path requested.
-const getFilePath = ({ container, pathname }) => `/${container}${getPath(pathname)}`
+const getFilePath = ({ container, url: { pathname } }) => `/${container}${getPath(pathname)}`
 
 function adjustContainer(item) {
-  const { container, isDefault, subdomain } = item
-  if (isDefault) return set('container', `${container}/${subdomain}`, item)
+  const { container, addSubdomain, url: { subdomain } } = item
   if (!container) return set('container', subdomain, item)
+  if (addSubdomain) return set('container', `${container}/${subdomain}`, item)
   return item
 }
 
-const getProxyInfo = (defaultInfo, domainIndex) => flow(
-  parseUrl,
-  mergeFieldsWith('subdomain', subdomain => getOr(defaultInfo, subdomain, domainIndex)),
-  adjustContainer,
+const getProxyInfo = getRouteInfo => flow(
+  pick(['headers', 'url']),
+  replaceField('url', parseUrl),
+  mergeFieldsWith('url.subdomain', getInfo(defaultInfo, domainIndex)),
+  mergeFields(getRouteInfo),
   setField('path', getFilePath),
   addFetchArgs,
 )
 
 module.exports = {
+  adjustContainer,
+  getInfo,
+  parseUrl,
   getProxyInfo: overArgs(getProxyInfo, [set('isDefault', true)]),
 }
