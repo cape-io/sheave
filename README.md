@@ -33,7 +33,7 @@ Make a `addRouteInfo` function. The function accepts an object that contains inf
 const getRouteInfo = _.constant({
   accessToken: process.env.DROPBOX_TOKEN,
   provider: 'dropbox',
-  pathTemplate: '/dumper${pathname}',
+  pathTemplate: _.template('/dumper${pathname}'),
 })
 ```
 
