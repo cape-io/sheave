@@ -36,6 +36,7 @@ const defaultInfo = {
   provider: 'dropbox',
   accessToken: 'key',
   path: '/example/index.html',
+  pathTemplate: '/container${pathanem}', // eslint-disable-line no-template-curly-in-string
 }
 
 describe('getProxyInfo', () => {
