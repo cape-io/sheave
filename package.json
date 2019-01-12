@@ -1,14 +1,19 @@
 {
   "name": "sheave",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "main": "src/index.js",
   "author": "Kai Curry <kai@cape.io>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest --watch"
+  },
   "dependencies": {
-    "cape-lodash": "^2.4.0",
+    "location-info": "^5.1.0",
     "lodash": "^4.17.11",
     "lodash-humps": "^3.1.2",
-    "mime": "^2.4.0"
+    "mime": "^2.4.0",
+    "prairie": "^3.0.0",
+    "understory": "^1.0.0"
   },
   "devDependencies": {
     "date-fns": "^2.0.0-alpha.26",
@@ -16,7 +21,8 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-lodash-fp": "^2.2.0-a1",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "node-fetch": "^2.3.0"
   },
   "repository": "git@github.com:cape-io/sheave.git"
 }

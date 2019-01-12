@@ -2,7 +2,7 @@
 const { Headers } = require('node-fetch')
 
 /* globals describe test expect */
-const { getInfo, getProxyInfo, parseUrl } = require('./utils')
+const { getPathname, getProxyInfo, parseUrl } = require('./utils')
 
 const req1 = {
   headers: new Headers({
@@ -18,11 +18,14 @@ const defaultInfo = {
 }
 
 describe('getInfo', () => {
-  const info = getInfo(defaultInfo)('')
-  test('should be same when no index', () => {
-    expect(info).toBe(defaultInfo)
+  test('should add default ext', () => {
+    expect(getPathname('/filename')).toBe('/filename.html')
+  })
+  test('should add default index file', () => {
+    expect(getPathname('/dir/')).toBe('/dir/index.html')
   })
 })
+
 describe('parseUrl', () => {
   test('should parse url and add subdomain', () => {
     const info = parseUrl(req1.url)
@@ -35,20 +38,21 @@ describe('parseUrl', () => {
 })
 
 describe('getProxyInfo', () => {
-  const info = getProxyInfo(defaultInfo)(req1)
+  // const info = getProxyInfo(defaultInfo)(req1)
+  //
+  // test('leave headers along', () => {
+  //   expect(info.headers).toBe(req1.headers)
+  // })
+  // test('should make a dropbox url', () => {
+  //   expect(info.args[0]).toBe('https://content.dropboxapi.com/2/files/download')
+  // })
+  // test('should copy access to header', () => {
+  //   expect(info.args[1].headers.Authorization).toBe('Bearer key')
+  // })
+  // test('should add subdomain to path', () => {
+  //   expect(info.path).toBe('/cape/f001/file/path/index.html')
+  // })
 
-  test('leave headers along', () => {
-    expect(info.headers).toBe(req1.headers)
-  })
-  test('should make a dropbox url', () => {
-    expect(info.args[0]).toBe('https://content.dropboxapi.com/2/files/download')
-  })
-  test('should copy access to header', () => {
-    expect(info.args[1].headers.Authorization).toBe('Bearer key')
-  })
-  test('should add subdomain to path', () => {
-    expect(info.path).toBe('/cape/f001/file/path/index.html')
-  })
   // test('add default ext to files without', () => {
   //   expect(getFetchArgs({ url: 'https://ddh.cape.io/index' }).args[0]).toBe(res1)
   // })

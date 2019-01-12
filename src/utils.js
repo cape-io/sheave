@@ -1,52 +1,28 @@
 const {
-  curry, eq, defaults, defaultTo, flow, overArgs, pick, propertyOf, set, stubFalse,
+  flow, get, isFunction, pick, set, update,
 } = require('lodash/fp')
+const { overBranch } = require('understory')
 const {
-  condId, doProp, replaceField, setField, setWith,
-} = require('cape-lodash')
+  mergeFields, setField, setFieldWith,
+} = require('prairie')
+const { getLocation } = require('location-info')
 const { addFetchArgs } = require('./providers')
+
+// PATHNAME Utilities to add .html file extension and /index.html for paths ending in /.
 
 const INDEX_FILE = 'index'
 const DEFAULT_EXT = '.html'
 
-const mergeFieldsWith = curry((withId, transformer, item) => ({
-  ...item,
-  ...doProp(transformer, withId)(item),
-}))
-
-const parseUrl = flow(
-  x => new URL(x),
-
-)
-
-// This is the info passed to getProxyInfo from the parent.
-function getInfo(defaultInfo, domainIndex) {
-  const sameProvider = defaultInfo.provider ? eq(defaultInfo.provider) : stubFalse
-  return flow(
-    propertyOf(domainIndex),
-    defaultTo(defaultInfo),
-    condId([sameProvider, defaults(defaultInfo)]),
-  )
-}
-
 // Decide if route needs an index file
-function needsIndex(pathname) {
-  return !pathname || pathname.endsWith('/')
-}
-
+const needsIndex = pathname => !pathname || pathname.endsWith('/')
 // Decide if route needs an extension added
 function needsExt(pathname) {
   const lastSegment = pathname.substring(pathname.lastIndexOf('/'))
   return (lastSegment.indexOf('.') === -1)
 }
-
 const addIndex = pathname => (needsIndex(pathname) ? pathname.concat(INDEX_FILE) : pathname)
 const addExt = pathname => (needsExt(pathname) ? pathname.concat(DEFAULT_EXT) : pathname)
-
-const getPath = pathname => addExt(addIndex(pathname))
-
-// Combine bucketPath for entire domain with the specific path requested.
-const getFilePath = ({ container, url: { pathname } }) => `/${container}${getPath(pathname)}`
+const getPathname = pathname => addExt(addIndex(pathname))
 
 function adjustContainer(item) {
   const { container, addSubdomain, url: { subdomain } } = item
@@ -55,18 +31,28 @@ function adjustContainer(item) {
   return item
 }
 
+const parseUrl = flow(
+  x => new URL(x),
+  getLocation,
+)
+const getPath = overBranch(
+  flow(get('pathTemplate'), isFunction),
+  item => item.pathTemplate(item),
+)
+
+// URL parse and figure out proxy path.
 const getProxyInfo = getRouteInfo => flow(
   pick(['headers', 'url']),
-  replaceField('url', parseUrl),
-  mergeFieldsWith('url.subdomain', getInfo(defaultInfo, domainIndex)),
+  update('url', parseUrl),
+  setFieldWith('pathname', 'url.pathname', getPathname),
   mergeFields(getRouteInfo),
-  setField('path', getFilePath),
+  setField('path', getPath),
   addFetchArgs,
 )
 
 module.exports = {
   adjustContainer,
-  getInfo,
+  getPathname,
   parseUrl,
-  getProxyInfo: overArgs(getProxyInfo, [set('isDefault', true)]),
+  getProxyInfo,
 }

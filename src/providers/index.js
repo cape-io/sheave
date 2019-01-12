@@ -1,4 +1,4 @@
-const { setField } = require('cape-lodash')
+const { setField } = require('prairie')
 const { flow, get, propertyOf } = require('lodash/fp')
 const b2 = require('./b2')
 const dropbox = require('./dropbox')

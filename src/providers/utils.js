@@ -1,7 +1,7 @@
 const {
   eq, flow, find, get,
 } = require('lodash/fp')
-const { isLt } = require('cape-lodash')
+const { isLt } = require('understory')
 
 const durations = [
   2592000, // month
