@@ -27,7 +27,22 @@ Import or require into your project.
 const { getProxyInfo, registerFunction } = require('sheave')
 ```
 
-Make a `addRouteInfo` function. The function accepts an object that contains information about the request. It must return an object that will be merged in.
+Make a `addRouteInfo` function. The function accepts an object that contains information about the request. It must return an object that will be merged in. If you do not need different options for various routes do something like this with lodash `_.contant`.
+
+```javascript
+const getRouteInfo = _.constant({
+  accessToken: process.env.DROPBOX_TOKEN,
+  provider: 'dropbox',
+  pathTemplate: '/dumper${pathname}',
+})
+```
+
+Then you pass your `getRouteInfo` function to `getProxyInfo` and send the result of that to `registerFunction`.
+
+```javascript
+const getInfo = getProxyInfo(getRouteInfo)
+registerFunction(getInfo)
+```
 
 ### Directives
 
