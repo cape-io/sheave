@@ -2,7 +2,7 @@
 
 Web request redirection! Intended for use inside `webworker` environment.
 
-## Globals
+## Expected Globals
 
 * fetch
 * Response
@@ -15,8 +15,19 @@ Web request redirection! Intended for use inside `webworker` environment.
 
 ## TODO
 
-[] Tests
+[x] Basic Tests
+[] More Tests
 [] Make it easy to redirect to any web folder. Like raw.github.
+
+## Usage
+
+Import or require into your project.
+
+```javascript
+const { getProxyInfo, registerFunction } = require('sheave')
+```
+
+Make a `addRouteInfo` function. The function accepts an object that contains information about the request. It must return an object that will be merged in.
 
 ### Directives
 

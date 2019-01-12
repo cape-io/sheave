@@ -1,6 +1,7 @@
 const { subSeconds, subYears } = require('date-fns')
-/* globals describe test expect */
 const { getCacheControll, getDuration } = require('./utils')
+
+/* globals describe test expect */
 
 describe('getDuration', () => {
   test('max age 1 month', () => {

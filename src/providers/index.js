@@ -1,5 +1,7 @@
+const {
+  flow, get, isFunction, propertyOf,
+} = require('lodash/fp')
 const { setField } = require('prairie')
-const { flow, get, propertyOf } = require('lodash/fp')
 const b2 = require('./b2')
 const dropbox = require('./dropbox')
 
@@ -11,6 +13,7 @@ const getFunc = propId => flow(get('provider'), propertyOf(providers), get(propI
 
 function addFetchArgs(info) {
   const fetchArgs = getFunc('createFetchArgs')(info)
+  if (!isFunction(fetchArgs)) return info
   return setField('args', fetchArgs, info)
 }
 function handleResponse(info) {
