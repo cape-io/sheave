@@ -1,4 +1,6 @@
-const { constant } = require('lodash/fp')
+const {
+  constant, omit, template, update,
+} = require('lodash/fp')
 const { Headers } = require('node-fetch')
 const { getDropboxPath } = require('./providers/dropbox')
 
@@ -36,7 +38,7 @@ const defaultInfo = {
   provider: 'dropbox',
   accessToken: 'key',
   path: '/example/index.html',
-  pathTemplate: '/container${pathanem}', // eslint-disable-line no-template-curly-in-string
+  pathTemplate: '/container${pathname}', // eslint-disable-line no-template-curly-in-string
 }
 
 describe('getProxyInfo', () => {
@@ -56,10 +58,26 @@ describe('getProxyInfo', () => {
   test('should use path if set by addRouteInfo', () => {
     expect(info.path).toBe(defaultInfo.path)
   })
-
   test('add default ext to files without', () => {
     const info2 = getInfo({ ...req1, url: 'https://sheave.cape.io/foo' })
     expect(info2.pathname).toBe('/foo.html')
     expect(getDropboxPath(info2)).toBe('/example/index.html')
   })
+
+  const defaultInfo2 = omit('path', defaultInfo)
+  test('should not calculate path if pathTemplate is only a string.', () => {
+    const getInfo2 = getProxyInfo(constant(defaultInfo2))
+    expect(getInfo2(req1).path).toBe('')
+  })
+
+  const defaultInfo3 = update('pathTemplate', template, defaultInfo2)
+  test('should calculate path if addRouteInfo is a function', () => {
+    const getInfo2 = getProxyInfo(constant(defaultInfo3))
+    expect(getInfo2(req1).path).toBe('/container/file/path/index.html')
+  })
+  // const addInfo = constant({
+  //   accessToken: process.env.DROPBOX_KAI,
+  //   provider: 'dropbox',
+  //   pathTemplate: '/dumper${pathname}', // eslint-disable-line no-template-curly-in-string
+  // })
 })
