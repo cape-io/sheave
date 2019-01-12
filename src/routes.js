@@ -11,7 +11,8 @@ const compileTemplate = overBranch(isString, template)
 const fixRoute = update('pathTemplate', compileTemplate)
 
 // const log = (x) => { console.log(x); return x }
-// Do an exact match check against route first.
+
+// @TODO Do an exact match check against route first.
 
 function getRouter(routeActions, settings = {}) {
   const state = reducer(defaults(defaultState, settings), addRoutes(routeActions))

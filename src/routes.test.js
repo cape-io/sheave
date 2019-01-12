@@ -1,7 +1,8 @@
-const { flow, get } = require('lodash/fp')
+const { get } = require('lodash/fp')
 const { Headers } = require('node-fetch')
 const { getProxyInfo } = require('./utils')
 const getRouter = require('./routes')
+const { getDropboxPath } = require('./providers/dropbox')
 
 /* globals describe test expect */
 
@@ -29,8 +30,8 @@ describe('getRouter', () => {
     leadingSlash: false,
     urlPath: 'subdomain',
   }
-  const getRouteInfo = getRouter(routeActions, settings)
-  const getRoute = getProxyInfo(getRouteInfo)
+  const addRouteInfo = getRouter(routeActions, settings)
+  const getInfo = getProxyInfo(addRouteInfo)
 
   const req1 = {
     headers: new Headers({
@@ -39,14 +40,13 @@ describe('getRouter', () => {
     url: 'https://op1.example.com/',
   }
   test('getProxyInfo', () => {
-    const info1 = getRoute(req1)
+    const info1 = getInfo(req1)
     expect(get('args[0]', info1)).toBe('https://f001.backblazeb2.com/file/foo/index.html')
 
-    const info2 = getRoute({ ...req1, url: 'https://op2.example.com/foo' })
-    expect(flow(get('args[1].headers.Dropbox-API-Arg'), JSON.parse, get('path'))(info2))
-      .toBe('/op2/foo.html')
+    const info2 = getInfo({ ...req1, url: 'https://op2.example.com/foo' })
+    expect(getDropboxPath(info2)).toBe('/op2/foo.html')
 
-    const info3 = getRoute({ ...req1, url: 'https://dumper.example.com/about-us/' })
+    const info3 = getInfo({ ...req1, url: 'https://dumper.example.com/about-us/' })
     expect(get('args[0]', info3))
       .toBe('https://f001.backblazeb2.com/file/cape-io/dumper/about-us/index.html')
   })

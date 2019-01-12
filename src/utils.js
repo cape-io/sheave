@@ -1,7 +1,6 @@
 const {
-  flow, get, isFunction, pick, set, update,
+  cond, conforms, flow, get, isFunction, isString, pick, set, stubString, stubTrue, update,
 } = require('lodash/fp')
-const { overBranch } = require('understory')
 const {
   mergeFields, setField, setFieldWith,
 } = require('prairie')
@@ -35,23 +34,25 @@ const parseUrl = flow(
   x => new URL(x),
   getLocation,
 )
-const getPath = overBranch(
-  flow(get('pathTemplate'), isFunction),
-  item => item.pathTemplate(item),
-)
+const getPath = cond([
+  [conforms({ path: isString }), get('path')],
+  [conforms({ pathTemplate: isFunction }), item => item.pathTemplate(item)],
+  [stubTrue, stubString],
+])
 
 // URL parse and figure out proxy path.
-const getProxyInfo = getRouteInfo => flow(
+const getProxyInfo = addRouteInfo => flow(
   pick(['headers', 'url']),
   update('url', parseUrl),
   setFieldWith('pathname', 'url.pathname', getPathname),
-  mergeFields(getRouteInfo),
+  mergeFields(addRouteInfo),
   setField('path', getPath),
   addFetchArgs,
 )
 
 module.exports = {
   adjustContainer,
+  getPath,
   getPathname,
   parseUrl,
   getProxyInfo,

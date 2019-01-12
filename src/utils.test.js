@@ -1,5 +1,6 @@
-// const { constant } = require('lodash/fp')
+const { constant } = require('lodash/fp')
 const { Headers } = require('node-fetch')
+const { getDropboxPath } = require('./providers/dropbox')
 
 /* globals describe test expect */
 const { getPathname, getProxyInfo, parseUrl } = require('./utils')
@@ -9,12 +10,6 @@ const req1 = {
     referer: 'https://sheave.cape.io/',
   }),
   url: 'https://usr:pw@f001.bz2.com:80/file/path/index.html?foo=bar',
-}
-const defaultInfo = {
-  provider: 'dropbox',
-  accessToken: 'key',
-  container: 'cape',
-  addSubdomain: true,
 }
 
 describe('getInfo', () => {
@@ -37,38 +32,33 @@ describe('parseUrl', () => {
   })
 })
 
-describe('getProxyInfo', () => {
-  // const info = getProxyInfo(defaultInfo)(req1)
-  //
-  // test('leave headers along', () => {
-  //   expect(info.headers).toBe(req1.headers)
-  // })
-  // test('should make a dropbox url', () => {
-  //   expect(info.args[0]).toBe('https://content.dropboxapi.com/2/files/download')
-  // })
-  // test('should copy access to header', () => {
-  //   expect(info.args[1].headers.Authorization).toBe('Bearer key')
-  // })
-  // test('should add subdomain to path', () => {
-  //   expect(info.path).toBe('/cape/f001/file/path/index.html')
-  // })
+const defaultInfo = {
+  provider: 'dropbox',
+  accessToken: 'key',
+  path: '/example/index.html',
+}
 
-  // test('add default ext to files without', () => {
-  //   expect(getFetchArgs({ url: 'https://ddh.cape.io/index' }).args[0]).toBe(res1)
-  // })
-  // const res2 = 'https://f001.backblazeb2.com/file/cape-io/redux-history/index.html'
-  // test('should return redux-history correctly', () => {
-  //   expect(getFetchArgs({ url: 'https://redux-history.cape.io' }).args[0]).toBe(res2)
-  //   expect(getFetchArgs({ url: 'https://redux-history.cape.io/' }).args[0]).toBe(res2)
-  // })
-  // test('handle files with ext', () => {
-  //   expect(getFetchArgs({ url: 'https://redux-history.cape.io/index.html' }).args[0]).toBe(res2)
-  // })
-  // const dbox = 'https://content.dropboxapi.com/2/files/download'
-  // test('can go to dropbox', () => {
-  //   const request = { url: 'https://dumper.cape.io', headers: { get: constant() } }
-  //   const info = getFetchArgs(request)
-  //   expect(info.args[0]).toBe(dbox)
-  //   expect(info.args[1].headers['Dropbox-API-Arg']).toBe('{"path":"/dumper/index.html"}')
-  // })
+describe('getProxyInfo', () => {
+  const addRouteInfo = constant(defaultInfo)
+  const getInfo = getProxyInfo(addRouteInfo)
+  const info = getInfo(req1)
+
+  test('leave headers along', () => {
+    expect(info.headers).toBe(req1.headers)
+  })
+  test('should make a dropbox url', () => {
+    expect(info.args[0]).toBe('https://content.dropboxapi.com/2/files/download')
+  })
+  test('should copy access to header', () => {
+    expect(info.args[1].headers.Authorization).toBe('Bearer key')
+  })
+  test('should use path if set by addRouteInfo', () => {
+    expect(info.path).toBe(defaultInfo.path)
+  })
+
+  test('add default ext to files without', () => {
+    const info2 = getInfo({ ...req1, url: 'https://sheave.cape.io/foo' })
+    expect(info2.pathname).toBe('/foo.html')
+    expect(getDropboxPath(info2)).toBe('/example/index.html')
+  })
 })
