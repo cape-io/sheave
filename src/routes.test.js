@@ -11,19 +11,19 @@ describe('getRouter', () => {
     {
       id: 'op1',
       provider: 'b2',
-      pathTemplate: '/foo${pathname}', // eslint-disable-line no-template-curly-in-string
+      pathTemplate: ({ pathname }) => `/foo${pathname}`,
     },
     {
       id: 'op2',
       provider: 'dropbox',
       accessToken: 'abc',
-      pathTemplate: '/${url.subdomain}${pathname}', // eslint-disable-line no-template-curly-in-string
+      pathTemplate: ({ pathname, url }) => `/${url.subdomain}${pathname}`,
     },
     {
       id: 'default',
       pattern: '*',
       provider: 'b2',
-      pathTemplate: '/cape-io/${url.subdomain}${pathname}', // eslint-disable-line no-template-curly-in-string
+      pathTemplate: ({ pathname, url }) => `/cape-io/${url.subdomain}${pathname}`,
     },
   ]
   const settings = {

@@ -1,14 +1,10 @@
 const {
-  defaults, defaultTo, flow, get, isString, map, partial, template, update,
+  defaults, defaultTo, flow, get, partial,
 } = require('lodash/fp')
 const {
   addRoutes, defaultState, findRoute, reducer, selectRoutes,
 } = require('location-info')
-const { overBranch } = require('understory')
 const { createObj } = require('prairie')
-
-const compileTemplate = overBranch(isString, template)
-const fixRoute = update('pathTemplate', compileTemplate)
 
 // const log = (x) => { console.log(x); return x }
 
@@ -16,7 +12,7 @@ const fixRoute = update('pathTemplate', compileTemplate)
 
 function getRouter(routeActions, settings = {}) {
   const state = reducer(defaults(defaultState, settings), addRoutes(routeActions))
-  const routes = flow(createObj('locInfo'), selectRoutes, map(fixRoute))(state)
+  const routes = flow(createObj('locInfo'), selectRoutes)(state)
   return flow(
     get('url'),
     get(state.urlPath),

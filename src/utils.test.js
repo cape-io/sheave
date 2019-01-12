@@ -1,5 +1,5 @@
 const {
-  constant, omit, template, update,
+  constant, omit, update,
 } = require('lodash/fp')
 const { Headers } = require('node-fetch')
 const { getDropboxPath } = require('./providers/dropbox')
@@ -70,7 +70,7 @@ describe('getProxyInfo', () => {
     expect(getInfo2(req1).path).toBe('')
   })
 
-  const defaultInfo3 = update('pathTemplate', template, defaultInfo2)
+  const defaultInfo3 = { ...defaultInfo2, pathTemplate: ({ pathname }) => `/container${pathname}` }
   test('should calculate path if addRouteInfo is a function', () => {
     const getInfo2 = getProxyInfo(constant(defaultInfo3))
     expect(getInfo2(req1).path).toBe('/container/file/path/index.html')
