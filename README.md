@@ -15,8 +15,6 @@ Web request redirection! Intended for use inside `webworker` environment.
 
 ## TODO
 
-[x] Basic Tests
-[] More Tests
 [] Make it easy to redirect to any web folder. Like raw.github.
 
 ## Usage

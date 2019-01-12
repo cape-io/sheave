@@ -1,7 +1,7 @@
 const { get } = require('lodash/fp')
 const { Headers } = require('node-fetch')
 const { getProxyInfo } = require('./utils')
-const { compileTemplate, getRouter } = require('./routes')
+const { getRouter } = require('./routes')
 const { getDropboxPath } = require('./providers/dropbox')
 
 /* globals describe test expect */
@@ -29,12 +29,6 @@ const routeActions = [
   },
 ]
 
-describe('compileTemplate', () => {
-  test('use id as container', () => {
-    const template = compileTemplate(routeActions[2])
-    expect(template({ id: 'foo', pathname: '/file.png' })).toBe('/foo/file.png')
-  })
-})
 describe('getRouter', () => {
   const settings = {
     leadingSlash: false,

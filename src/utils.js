@@ -1,5 +1,5 @@
 const {
-  cond, conforms, flow, get, getOr, isFunction, isString, pick, set, stubString, stubTrue, update,
+  cond, conforms, flow, get, getOr, isFunction, isString, pick, set, stubTrue, update,
 } = require('lodash/fp')
 const {
   mergeFields, setField, setFieldWith,
@@ -38,6 +38,7 @@ const getPath = cond([
   [conforms({ path: isString }), get('path')],
   [conforms({ pathTemplate: isFunction }), item => item.pathTemplate(item)],
   [conforms({ pathTemplate: isString }), item => getOr('', item.pathTemplate, item)],
+  [conforms({ container: isString }), ({ container, pathname }) => `/${container}${pathname}`],
   [stubTrue, get('pathname')],
 ])
 

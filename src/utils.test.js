@@ -5,7 +5,9 @@ const { Headers } = require('node-fetch')
 const { getDropboxPath } = require('./providers/dropbox')
 
 /* globals describe test expect */
-const { getPathname, getProxyInfo, parseUrl } = require('./utils')
+const {
+  getPath, getPathname, getProxyInfo, parseUrl,
+} = require('./utils')
 
 const req1 = {
   headers: new Headers({
@@ -22,7 +24,29 @@ describe('getInfo', () => {
     expect(getPathname('/dir/')).toBe('/dir/index.html')
   })
 })
-
+describe('getPath', () => {
+  test('use path prop if already set', () => {
+    expect(getPath({ path: '/file.png' })).toBe('/file.png')
+  })
+  test('use template function', () => {
+    const info = {
+      pathTemplate: ({ pathname, url }) => `/${url.subdomain}${pathname}`,
+      url: { subdomain: 'foo' },
+      pathname: '/file.png',
+    }
+    expect(getPath(info)).toBe('/foo/file.png')
+  })
+  test('template string uses get', () => {
+    expect(getPath({ baz: '/file.png', pathTemplate: 'baz' })).toBe('/file.png')
+    expect(getPath({ baz: '/file.png', pathTemplate: 'bazz' })).toBe('')
+  })
+  test('prepend container string', () => {
+    expect(getPath({ container: 'nori', pathname: '/file.png' })).toBe('/nori/file.png')
+  })
+  test('use pathname by default', () => {
+    expect(getPath({ pathname: '/file.png' })).toBe('/file.png')
+  })
+})
 describe('parseUrl', () => {
   test('should parse url and add subdomain', () => {
     const info = parseUrl(req1.url)
