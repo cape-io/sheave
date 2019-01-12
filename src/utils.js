@@ -1,5 +1,5 @@
 const {
-  cond, conforms, flow, get, isFunction, isString, pick, set, stubString, stubTrue, update,
+  cond, conforms, flow, get, getOr, isFunction, isString, pick, set, stubString, stubTrue, update,
 } = require('lodash/fp')
 const {
   mergeFields, setField, setFieldWith,
@@ -37,7 +37,8 @@ const parseUrl = flow(
 const getPath = cond([
   [conforms({ path: isString }), get('path')],
   [conforms({ pathTemplate: isFunction }), item => item.pathTemplate(item)],
-  [stubTrue, stubString],
+  [conforms({ pathTemplate: isString }), item => getOr('', item.pathTemplate, item)],
+  [stubTrue, get('pathname')],
 ])
 
 // URL parse and figure out proxy path.

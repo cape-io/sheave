@@ -1,5 +1,5 @@
 const {
-  constant, omit, update,
+  constant, omit, set,
 } = require('lodash/fp')
 const { Headers } = require('node-fetch')
 const { getDropboxPath } = require('./providers/dropbox')
@@ -65,11 +65,15 @@ describe('getProxyInfo', () => {
   })
 
   const defaultInfo2 = omit('path', defaultInfo)
-  test('should not calculate path if pathTemplate is only a string.', () => {
+  test('should not calculate path if pathTemplate is string to invalid info path.', () => {
     const getInfo2 = getProxyInfo(constant(defaultInfo2))
     expect(getInfo2(req1).path).toBe('')
   })
-
+  const defaultInfo4 = set('pathTemplate', 'url.subdomain', defaultInfo2)
+  test('Should get path of pathTemplate when string.', () => {
+    const getInfo2 = getProxyInfo(constant(defaultInfo4))
+    expect(getInfo2(req1).path).toBe('f001')
+  })
   const defaultInfo3 = { ...defaultInfo2, pathTemplate: ({ pathname }) => `/container${pathname}` }
   test('should calculate path if addRouteInfo is a function', () => {
     const getInfo2 = getProxyInfo(constant(defaultInfo3))
