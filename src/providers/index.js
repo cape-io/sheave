@@ -16,10 +16,10 @@ const getProvider = flow(get('provider'), propertyOf({ b2, dropbox }))
 const getArgs = select(getProvider, 'createFetchArgs', stubObject)
 const getRes = select(getProvider, 'createOnResponse', identity)
 
-const addFetchArgs = setField('args', getArgs)
+const addFetchArgs = info => setField('args', getArgs(info), info)
 
 function handleResponse(info) {
-  return response => getRes(new Response(response.body, response), info)
+  return response => getRes(info)(new Response(response.body, response), info)
 }
 
 module.exports = {
