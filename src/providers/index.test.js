@@ -5,6 +5,6 @@ const { addFetchArgs } = require('./')
 describe('addFetchArgs', () => {
   test('handle empty obj', () => {
     const info = {}
-    expect(addFetchArgs(info)).toBe(info)
+    expect(addFetchArgs(info)).toEqual({ args: {} })
   })
 })

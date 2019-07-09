@@ -10,7 +10,7 @@ Web request redirection! Intended for use inside `webworker` environment.
 
 ## Providers
 
-* Backblaze B2
+* `b2` Backblaze B2
 * Dropbox
 
 ## TODO

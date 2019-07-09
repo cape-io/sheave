@@ -1,5 +1,5 @@
 const {
-  flow, get, isFunction, propertyOf,
+  defaultTo, flow, get, identity, propertyOf, stubObject,
 } = require('lodash/fp')
 const { setField } = require('prairie')
 const b2 = require('./b2')
@@ -7,21 +7,19 @@ const dropbox = require('./dropbox')
 
 /* globals Response */
 
-const providers = { b2, dropbox }
-
-const getFunc = propId => flow(get('provider'), propertyOf(providers), get(propId))
-
-function addFetchArgs(info) {
-  const fetchArgs = getFunc('createFetchArgs')(info)
-  if (!isFunction(fetchArgs)) return info
-  return setField('args', fetchArgs, info)
+function select(selector, path, defaultValue = null) {
+  return flow(selector, get(path), defaultTo(defaultValue))
 }
+
+const getProvider = flow(get('provider'), propertyOf({ b2, dropbox }))
+
+const getArgs = select(getProvider, 'createFetchArgs', stubObject)
+const getRes = select(getProvider, 'createOnResponse', identity)
+
+const addFetchArgs = setField('args', getArgs)
+
 function handleResponse(info) {
-  return (response) => {
-    const res = new Response(response.body, response)
-    const onResponse = getFunc('createOnResponse')(info)
-    return onResponse(res, info)
-  }
+  return response => getRes(new Response(response.body, response), info)
 }
 
 module.exports = {
