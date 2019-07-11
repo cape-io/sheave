@@ -27,6 +27,7 @@ function handler(getProxyInfo, event) {
   const info = checkVerRes(getProxyInfo(event.request))
 
   if (isPlainObject(info.response)) return dataRes(info.response)
+  if (!info.args) return dataRes(info)
   return fetch(...info.args)
     .then(handleResponse(info))
     .catch(console.error)
