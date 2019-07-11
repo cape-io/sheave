@@ -691,14 +691,14 @@ camelcase@^5.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-cape-redux@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/cape-redux/-/cape-redux-3.3.0.tgz#67a75281ab539319f44667120721155d3e01e5e5"
-  integrity sha512-bBbaM5A+Wime6kSX9LsC+FoCZsbfJdtsr/HqKWq58W0n/f1aGRVRiavCmWQlJKAqDnYlTfUq9zMcBeDxu7uAEA==
+cape-redux@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/cape-redux/-/cape-redux-3.3.1.tgz#053733f5ffa54e9b80e163971d103264ca61a2e6"
+  integrity sha512-jvBRRBVrDfGTxHEOM49F8dV6MzXtq6Xg2E5G79oR1FOr5yuJ4JF1Suiu4GDBWeFXy/TGkIRMUFVP0EGfdANgBg==
   dependencies:
     jart "^1.0.0"
-    lodash "^4.17.11"
-    redux "^4.0.1"
+    lodash "^4.17.14"
+    redux "^4.0.4"
 
 cape-select@^3.1.1:
   version "3.1.1"
@@ -2554,17 +2554,17 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-location-info@^5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/location-info/-/location-info-5.1.2.tgz#b6a03f4082560aaa1511df780c2003e3ff1cc532"
-  integrity sha512-TK3SAY1uDK42YM8CrQa9tXGrwHUpeGlhXo0wuNa1lnE3nVR0E2Z5m+OhM6FNVglVqnH7JLTaKwok8epah90SWg==
+location-info@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/location-info/-/location-info-5.1.3.tgz#0d422c9f95bc38682f878c06d34e31db163823db"
+  integrity sha512-h7it7gQ2V5DXDLSTsBYWqs4Y6q2KnOQg+hso83ZIwS/SjSp1OBrhnR8wadSaXatRbk41pvEM6P7At26tjvl4xQ==
   dependencies:
-    cape-redux "^3.3.0"
+    cape-redux "^3.3.1"
     cape-select "^3.1.1"
     lodash "^4.17.14"
     prairie "^3.9.1"
     reselect "^4.0.0"
-    understory "^1.7.0"
+    understory "^1.7.1"
     url-pattern "^1.0.3"
 
 lodash-humps@^3.1.2:
@@ -3373,7 +3373,7 @@ realpath-native@^1.1.0:
   dependencies:
     util.promisify "^1.0.0"
 
-redux@^4.0.1:
+redux@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
   integrity sha512-vKv4WdiJxOWKxK0yRoaK3Y4pxxB0ilzVx6dszU2W8wLxlb2yikRph4iV/ymtdJ6ZxpBLFbyrxklnT5yBbQSl3Q==
@@ -4075,6 +4075,13 @@ understory@^1.7.0:
   integrity sha512-8StoaiRj8zyc6q59Ja94uaF0TprDUrsMOXwO6701HESPSmPfRJVu0EFb14xkCGwX8qptyCTTXqpBCl53QYT6Xw==
   dependencies:
     lodash "^4.17.11"
+
+understory@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/understory/-/understory-1.7.1.tgz#90ef7779bd165612974bdfde581e38c99872c938"
+  integrity sha512-GWOI3d40Y/7aos+m0JbcSsDdKk5auZX/w5+S/cTxfON9m+rLw+0pjjqlI9y1aUD8Z5OJNxIiEvTB5FbqEMv3cg==
+  dependencies:
+    lodash "^4.17.14"
 
 union-value@^1.0.0:
   version "1.0.0"
