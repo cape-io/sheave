@@ -15,7 +15,7 @@ const verRes = ({ version }) => ({
 const isVersionReq = matchesProperty('pathname', '/_version.json')
 const checkVerRes = onTrue(isVersionReq, setField('response', verRes))
 
-const dataRes = res => new Response(JSON.stringify(res))
+const dataRes = res => Promise.resolve(new Response(JSON.stringify(res)))
 
 /**
  * Send the `args` property to `fetch()` then handleResponse before responding.
