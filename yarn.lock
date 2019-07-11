@@ -2554,15 +2554,15 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-location-info@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/location-info/-/location-info-5.1.1.tgz#1caeeae3f9ecc60743b6880d15c262fb6597cd95"
-  integrity sha512-moG1+XqV8/YrPh6zhYLY6inI9CwiiE8tntbTqHIyRa/Tq9X2MrAIuSMUAoPkND/e90NcPtBqhB5boQtTva+Ozg==
+location-info@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/location-info/-/location-info-5.1.2.tgz#b6a03f4082560aaa1511df780c2003e3ff1cc532"
+  integrity sha512-TK3SAY1uDK42YM8CrQa9tXGrwHUpeGlhXo0wuNa1lnE3nVR0E2Z5m+OhM6FNVglVqnH7JLTaKwok8epah90SWg==
   dependencies:
     cape-redux "^3.3.0"
     cape-select "^3.1.1"
     lodash "^4.17.14"
-    prairie "^3.9.0"
+    prairie "^3.9.1"
     reselect "^4.0.0"
     understory "^1.7.0"
     url-pattern "^1.0.3"
@@ -3235,13 +3235,13 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
-prairie@^3.9.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/prairie/-/prairie-3.9.0.tgz#3b72e319e5c09fe74ea5456767a6ca0e553ffbad"
-  integrity sha512-ug3u5vWi6pNA2LyjgOna8e96qKvKRXgen+sgUHyP4kQCpCHc+A+aKyNalhZfB6nexYYzOuljulTiUzAlq6lTVw==
+prairie@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/prairie/-/prairie-3.9.1.tgz#ee947656d57180dfd66c5d3d978b84f87e470490"
+  integrity sha512-eQjoE7j11dyWbcW8pTg3i7oNRE/UgsLN4GSWy/jTLTbboS3TaD3p82NGcBWuqcb7G/TueePQb29Tli1uxPoz0g==
   dependencies:
-    lodash "^4.17.11"
-    understory "^1.1.1"
+    lodash "^4.17.14"
+    understory "^1.7.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -4069,7 +4069,7 @@ uglify-js@^3.1.4:
     commander "~2.17.1"
     source-map "~0.6.1"
 
-understory@^1.1.1, understory@^1.7.0:
+understory@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/understory/-/understory-1.7.0.tgz#a8ccbab909e082de479a44153c5e6aff6e20c280"
   integrity sha512-8StoaiRj8zyc6q59Ja94uaF0TprDUrsMOXwO6701HESPSmPfRJVu0EFb14xkCGwX8qptyCTTXqpBCl53QYT6Xw==
