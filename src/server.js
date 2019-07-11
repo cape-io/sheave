@@ -15,7 +15,10 @@ const verRes = ({ version }) => ({
 const isVersionReq = matchesProperty('pathname', '/_version.json')
 const checkVerRes = onTrue(isVersionReq, setField('response', verRes))
 
-const dataRes = res => Promise.resolve(new Response(JSON.stringify(res)))
+const resInit = { status: 200, headers: { 'Content-Type': 'application/json' } }
+const dataRes = res => Promise.resolve(
+  new Response(JSON.stringify(res), resInit),
+)
 
 /**
  * Send the `args` property to `fetch()` then handleResponse before responding.
@@ -23,7 +26,7 @@ const dataRes = res => Promise.resolve(new Response(JSON.stringify(res)))
  * @param  {object} event        [description]
  * @return {promise}              [description]
  */
-function handler(getProxyInfo, event) {
+function handleRequest(getProxyInfo, event) {
   const info = checkVerRes(getProxyInfo(event.request))
 
   if (isPlainObject(info.response)) return dataRes(info.response)
@@ -40,11 +43,11 @@ function handler(getProxyInfo, event) {
  */
 function registerFunction(getProxyInfo) {
   addEventListener('fetch', (event) => {
-    event.respondWith(handler(getProxyInfo, event))
+    event.respondWith(handleRequest(getProxyInfo, event))
   })
 }
 
 module.exports = {
-  handler,
+  handleRequest,
   registerFunction,
 }
