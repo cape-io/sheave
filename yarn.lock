@@ -2567,12 +2567,12 @@ location-info@^5.1.5:
     understory "^1.7.1"
     url-pattern "^1.0.3"
 
-lodash-humps@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/lodash-humps/-/lodash-humps-3.1.3.tgz#56e71c09f7ed8cbbb3318527957cfbccd2e12308"
-  integrity sha512-ipTm/HsSZFn8W0MuZ0C/Gp3DH/FswfySLqtPxcOHLfbg5AfT8NRR6fkpucSV0XQJ4bMLFIs8QcusLHCNTl005Q==
+lodash-humps@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/lodash-humps/-/lodash-humps-3.1.4.tgz#9b790aa82f012b7a82e4c9aaebc2327b90c40d19"
+  integrity sha512-YuR4ezcegz7fIs2fk7hBjGvKdzKmxKRqX2aDSrXhNP5jPCZhBEH7kUpYAGDgYaDyh2SjDFvh6wDI6gLMSc7Maw==
   dependencies:
-    lodash "^4.17.11"
+    lodash "^4.17.14"
 
 lodash.get@^4.3.0, lodash.get@^4.4.2:
   version "4.4.2"
