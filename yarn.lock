@@ -700,13 +700,13 @@ cape-redux@^3.3.1:
     lodash "^4.17.14"
     redux "^4.0.4"
 
-cape-select@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/cape-select/-/cape-select-3.1.1.tgz#5108550d0f52b0f4a892432e80aa2bf95af900a8"
-  integrity sha512-0uDRm2ccgEdiyXJv3Na54ndR5SfvuNEgnUhjcCRA7YPftoQbiuVSZwemrjigO+2K++CJeO/9oiyzFpGCJDB2IA==
+cape-select@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/cape-select/-/cape-select-3.1.2.tgz#cf0880dcf04c55290fb7991de07beeda2e94e90a"
+  integrity sha512-e2AysruyZI82W8bU6evUZkxAEKUDszeVUOAI/LOgLclX1ZCaiGeZ2R+je+Brqn/neYH/FZxs60/XvXW8CYvbHw==
   dependencies:
     lodash "^4.17.14"
-    understory "^1.7.0"
+    understory "^1.7.1"
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -2554,13 +2554,13 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-location-info@^5.1.3:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/location-info/-/location-info-5.1.3.tgz#0d422c9f95bc38682f878c06d34e31db163823db"
-  integrity sha512-h7it7gQ2V5DXDLSTsBYWqs4Y6q2KnOQg+hso83ZIwS/SjSp1OBrhnR8wadSaXatRbk41pvEM6P7At26tjvl4xQ==
+location-info@^5.1.4:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/location-info/-/location-info-5.1.4.tgz#e3f262ab9b15aeda3f993f1f79e0c81b77020925"
+  integrity sha512-96ppEn418X6VI7xbMV1+1wSywZt00ywyT8RYMM3YqbqQuHg37guKFVcHOESHRIyhQCKCqTYYygwFzod+XTst8g==
   dependencies:
     cape-redux "^3.3.1"
-    cape-select "^3.1.1"
+    cape-select "^3.1.2"
     lodash "^4.17.14"
     prairie "^3.9.1"
     reselect "^4.0.0"
