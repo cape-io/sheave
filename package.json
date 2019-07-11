@@ -1,6 +1,6 @@
 {
   "name": "sheave",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "main": "src/index.js",
   "author": "Kai Curry <kai@cape.io>",
   "license": "MIT",
