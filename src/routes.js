@@ -7,7 +7,7 @@ const {
 } = require('location-info')
 const { createObj, setField } = require('prairie')
 
-// const log = (x) => { console.log(x); return x }
+// @TODO Turn this into its own module or add to location-info?
 
 // @TODO Do an exact match check against route first.
 
