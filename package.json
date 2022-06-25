@@ -22,7 +22,7 @@
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-lodash-fp": "^2.2.0-a1",
     "jest": "^24.8.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.7"
   },
   "repository": "git@github.com:cape-io/sheave.git"
 }
